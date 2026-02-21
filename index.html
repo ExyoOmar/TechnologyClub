@@ -141,6 +141,133 @@
   });
 </script>
 
+<div class="fixed top-[105px] left-0 right-0 z-[90] px-6 transition-all duration-500" id="news-ticker-container">
+  <div class="max-w-7xl mx-auto">
+    <div class="glass flex items-center h-10 overflow-hidden border-purple-100/30 py-0 shadow-sm bg-white/60 backdrop-blur-md">
+      
+      <div class="bg-purple-600 text-white h-full px-4 flex items-center gap-2 z-10 shrink-0">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-100 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+        </span>
+        <span class="text-xs font-black whitespace-nowrap">آخر الأخبار</span>
+      </div>
+
+      <div class="flex-grow overflow-hidden relative h-full flex items-center">
+        <div id="ticker-content" class="flex whitespace-nowrap items-center gap-12 text-sm font-bold text-slate-700">
+          </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  /* 1. Fix Header Spacing: Ensure Hero text doesn't hide under Nav+Ticker */
+  header { 
+    padding-top: 15rem !important; 
+  }
+
+  /* 2. Scrolling Animation */
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(100%); }
+  }
+  
+  #ticker-content {
+    display: inline-flex;
+    padding-left: 100%;
+    animation: ticker 30s linear infinite;
+  }
+
+  /* Pause on hover so students can read */
+  #ticker-content:hover {
+    animation-play-state: paused;
+    cursor: default;
+  }
+
+  /* 3. Hide logic when scrolling */
+  .ticker-hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+  }
+
+  /* 4. Responsive adjustments */
+  @media (max-width: 768px) {
+    header { padding-top: 13rem !important; }
+    #news-ticker-container { top: 92px; padding-left: 1rem; padding-right: 1rem; }
+  }
+</style>
+
+<script>
+  /**
+   * GitHub Pages Friendly Update: 
+   * Just edit the strings in this list to change your news.
+   */
+  const newsItems = [
+    "اللجنة الاعلامية التكنولوجية تطلق سلسلة فعاليات مسابقة بلبل الاسراء🏆",
+    " ترقبوا الفعاليات الرمضانية القادمة من اللجنة الاعلامية التكنولوجية💻",
+    "اللجنة الاعلامية التكنولوجية تطلق سلسلة فيديوهات باسم فوزاير رمضان🎬",
+    "تم تحديث رزمانة رمضان الرقمية - تابعوا مواقيت الصلاة بدقة ✨",
+    "لا تنسوا المشاركة في حائط الأدعية اليومي عبر الرابط بالأسفل 👇",
+    "اللجنة الاعلامية التكنولوجية تطلق سلسلة فعاليات مسابقة بلبل الاسراء🏆",
+    " ترقبوا الفعاليات الرمضانية القادمة من اللجنة الاعلامية التكنولوجية💻",
+    "اللجنة الاعلامية التكنولوجية تطلق سلسلة فيديوهات باسم فوزاير رمضان🎬",
+    "تم تحديث رزمانة رمضان الرقمية - تابعوا مواقيت الصلاة بدقة ✨",
+    "لا تنسوا المشاركة في حائط الأدعية اليومي عبر الرابط بالأسفل 👇",
+    "اللجنة الاعلامية التكنولوجية تطلق سلسلة فعاليات مسابقة بلبل الاسراء🏆",
+    " ترقبوا الفعاليات الرمضانية القادمة من اللجنة الاعلامية التكنولوجية💻",
+    "اللجنة الاعلامية التكنولوجية تطلق سلسلة فيديوهات باسم فوزاير رمضان🎬",
+    "تم تحديث رزمانة رمضان الرقمية - تابعوا مواقيت الصلاة بدقة ✨",
+    "لا تنسوا المشاركة في حائط الأدعية اليومي عبر الرابط بالأسفل 👇",
+    "اللجنة الاعلامية التكنولوجية تطلق سلسلة فعاليات مسابقة بلبل الاسراء🏆",
+    " ترقبوا الفعاليات الرمضانية القادمة من اللجنة الاعلامية التكنولوجية💻",
+    "اللجنة الاعلامية التكنولوجية تطلق سلسلة فيديوهات باسم فوزاير رمضان🎬",
+    "تم تحديث رزمانة رمضان الرقمية - تابعوا مواقيت الصلاة بدقة ✨",
+    "لا تنسوا المشاركة في حائط الأدعية اليومي عبر الرابط بالأسفل 👇",
+    "اللجنة الاعلامية التكنولوجية تطلق سلسلة فعاليات مسابقة بلبل الاسراء🏆",
+    " ترقبوا الفعاليات الرمضانية القادمة من اللجنة الاعلامية التكنولوجية💻",
+    "اللجنة الاعلامية التكنولوجية تطلق سلسلة فيديوهات باسم فوزاير رمضان🎬",
+    "تم تحديث رزمانة رمضان الرقمية - تابعوا مواقيت الصلاة بدقة ✨",
+    "لا تنسوا المشاركة في حائط الأدعية اليومي عبر الرابط بالأسفل 👇",
+    "اللجنة الاعلامية التكنولوجية تطلق سلسلة فعاليات مسابقة بلبل الاسراء🏆",
+    " ترقبوا الفعاليات الرمضانية القادمة من اللجنة الاعلامية التكنولوجية💻",
+    "اللجنة الاعلامية التكنولوجية تطلق سلسلة فيديوهات باسم فوزاير رمضان🎬",
+    "تم تحديث رزمانة رمضان الرقمية - تابعوا مواقيت الصلاة بدقة ✨",
+    "لا تنسوا المشاركة في حائط الأدعية اليومي عبر الرابط بالأسفل 👇",
+    
+  ];
+
+  function initNewsTicker() {
+    const tickerContainer = document.getElementById('ticker-content');
+    if (!tickerContainer) return;
+
+    // Join items with a decorative dot
+    const separator = `<span class="text-purple-400 mx-2">•</span>`;
+    const fullNewsString = newsItems.join(` ${separator} `);
+    
+    tickerContainer.innerHTML = fullNewsString;
+
+    // Adjust animation speed based on content length (approx 7 seconds per item)
+    const dynamicDuration = Math.max(20, newsItems.length * 7);
+    tickerContainer.style.animationDuration = `${dynamicDuration}s`;
+  }
+
+  // Handle Visibility on Scroll
+  window.addEventListener('scroll', () => {
+    const tickerContainer = document.getElementById('news-ticker-container');
+    if (window.scrollY > 40) {
+      tickerContainer.classList.add('ticker-hidden');
+    } else {
+      tickerContainer.classList.remove('ticker-hidden');
+    }
+  });
+
+  // Run on load
+  document.addEventListener('DOMContentLoaded', initNewsTicker);
+</script>
+
 <!-- ─── Hero ─────────────────────────────────────────────────────── -->
 <header id="home" class="relative min-h-screen flex items-center pt-32 md:pt-40 pb-20 overflow-hidden">
   <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[120px] -z-10 animate-pulse"></div>
@@ -463,6 +590,142 @@
   </div>
 </section>
 
+<section id="nafahat" class="relative py-24 px-6 bg-[#0f172a] overflow-hidden text-white">
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-purple-600 rounded-full blur-[120px]"></div>
+        <div class="absolute top-1/2 -left-24 w-72 h-72 bg-cyan-500 rounded-full blur-[100px]"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6" data-aos="fade-up">
+            <div class="max-w-2xl">
+                <div class="inline-block px-4 py-1 rounded-full border border-purple-400/30 bg-purple-500/10 text-purple-300 text-sm font-bold mb-4">
+                    برنامج رمضاني خاص ✨
+                </div>
+                <h2 class="text-5xl md:text-7xl font-black mb-6 bg-gradient-to-l from-white via-purple-100 to-purple-400 bg-clip-text text-transparent">
+                    نفحات الإسراء
+                </h2>
+                <p class="text-slate-400 text-lg md:text-xl leading-relaxed">
+                    رحلة إيمانية يومية غنية بالدروس والعبر، نغوص فيها في جوانب دينية ورمضانية بأسلوب شيق. 
+                    <br>
+                    <span class="text-purple-400 font-bold mt-2 block">بإشراف الأستاذ: مؤمن أبو صفا</span>
+                </p>
+            </div>
+            <div class="shrink-0">
+                <a href="https://www.facebook.com/IsraaExemplarySchool" target="_blank" class="group flex items-center gap-3 text-white font-bold bg-white/5 hover:bg-white/10 px-8 py-4 rounded-2xl border border-white/10 transition-all">
+                    مشاهدة كافة الحلقات
+                    <i class="fas fa-arrow-left group-hover:-translate-x-2 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+
+        <a href="https://www.facebook.com/share/v/1Fwv67riNM/" target="_blank" class="block relative group cursor-pointer mb-12" data-aos="zoom-in">
+            <div class="aspect-video w-full rounded-[2rem] overflow-hidden shadow-2xl ring-1 ring-white/20 relative">
+                <img src="momen.png" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                
+                <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                    <div class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-play text-white text-3xl"></i>
+                    </div>
+                </div>
+
+                <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black via-black/60 to-transparent text-right">
+                    <h3 class="text-2xl md:text-3xl font-bold">الحلقة الأحدث: ﴿ أَيَّامًا مَعْدُودَاتٍ ﴾</h3>
+                    <p class="text-slate-300">موسم رمضان 2026 • اضغط للمشاهدة على فيسبوك</p>
+                </div>
+            </div>
+        </a>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <div class="space-y-4 relative group" data-aos="fade-up" data-aos-delay="100">
+                <div class="aspect-video rounded-2xl overflow-hidden ring-1 ring-white/10 relative">
+                     <div class="absolute inset-0 z-10 backdrop-blur-md bg-black/40 flex items-center justify-center">
+                         <span class="bg-white/10 border border-white/20 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase">قريباً</span>
+                     </div>
+                     <img src="comingsoon.png" class="w-full h-full object-cover grayscale opacity-50">
+                </div>
+            </div>
+
+            <div class="space-y-4 relative group" data-aos="fade-up" data-aos-delay="200">
+                <div class="aspect-video rounded-2xl overflow-hidden ring-1 ring-white/10 relative">
+                     <div class="absolute inset-0 z-10 backdrop-blur-md bg-black/40 flex items-center justify-center">
+                         <span class="bg-white/10 border border-white/20 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase">قريباً</span>
+                     </div>
+                     <img src="comingsoon.png" class="w-full h-full object-cover grayscale opacity-50">
+                </div>
+            </div>
+
+            <div class="space-y-4 relative group" data-aos="fade-up" data-aos-delay="300">
+                <div class="aspect-video rounded-2xl overflow-hidden ring-1 ring-white/10 relative">
+                     <div class="absolute inset-0 z-10 backdrop-blur-md bg-black/40 flex items-center justify-center">
+                         <span class="bg-white/10 border border-white/20 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase">قريباً</span>
+                     </div>
+                     <img src="comingsoon.png" class="w-full h-full object-cover grayscale opacity-50">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="hall-of-fame" class="py-20 px-6 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+        
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-black text-slate-800 mb-4">لوحة الشرف 🏆</h2>
+            <p class="text-slate-600">نحتفي بالمبدعين والمتميزين في مسابقاتنا الرمضانية</p>
+        </div>
+
+        <div class="relative group">
+            
+            <div class="absolute inset-0 z-20 backdrop-blur-xl bg-white/30 border border-white/50 rounded-3xl flex flex-col items-center justify-center text-center p-8 transition-all duration-500 group-hover:backdrop-blur-lg">
+                <div class="bg-purple-600 text-white px-6 py-2 rounded-full text-sm font-bold animate-bounce mb-4 shadow-lg shadow-purple-200">
+                    قريباً جداً ✨
+                </div>
+                <h3 class="text-2xl font-black text-slate-800 mb-2">سيتم إعلان الفائزين قريباً</h3>
+                <p class="text-slate-600 max-w-xs">نحن حاليا في مرحلة عقد مسابقة بلبل الاسراء</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 opacity-50 grayscale">
+                <div class="glass p-6 text-center border-purple-100">
+                    <div class="w-24 h-24 bg-slate-200 rounded-full mx-auto mb-4 overflow-hidden border-4 border-white shadow-md">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=1" alt="Student">
+                    </div>
+                    <div class="h-6 bg-slate-200 rounded w-3/4 mx-auto mb-2"></div>
+                    <div class="h-4 bg-slate-100 rounded w-1/2 mx-auto"></div>
+                </div>
+
+                <div class="glass p-6 text-center border-yellow-100 ring-4 ring-yellow-400/20 transform scale-105">
+                    <div class="w-24 h-24 bg-slate-200 rounded-full mx-auto mb-4 overflow-hidden border-4 border-yellow-400 shadow-lg">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=2" alt="Student">
+                    </div>
+                    <div class="h-6 bg-slate-200 rounded w-3/4 mx-auto mb-2"></div>
+                    <div class="h-4 bg-slate-100 rounded w-1/2 mx-auto"></div>
+                </div>
+
+                <div class="glass p-6 text-center border-purple-100">
+                    <div class="w-24 h-24 bg-slate-200 rounded-full mx-auto mb-4 overflow-hidden border-4 border-white shadow-md">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=3" alt="Student">
+                    </div>
+                    <div class="h-6 bg-slate-200 rounded w-3/4 mx-auto mb-2"></div>
+                    <div class="h-4 bg-slate-100 rounded w-1/2 mx-auto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Add a slight shimmer to the "Coming Soon" text */
+    @keyframes shimmer {
+        0% { opacity: 0.8; }
+        50% { opacity: 1; transform: scale(1.05); }
+        100% { opacity: 0.8; }
+    }
+</style>
+
 <section id="volunteer-hub" class="max-w-7xl mx-auto px-6 md:px-12 py-24">
   <div class="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
     <div data-aos="fade-left">
@@ -593,12 +856,15 @@
 </script>
 
 <script>
-// إعدادات الأدعية (يمكنك إكمالها لـ 30 يوم)
 const ramadanDuas = {
     1: "اللهم اجعل صيامنا فيه صيام الصائمين وقيامنا فيه قيام القائمين.",
     2: "اللهم قربنا فيه إلى مرضاتك وجنبنا فيه من سخطك ونقماتك.",
     3: "اللهم ارزقني فيه الذهن والتنبيه, وباعدني فيه من السفاهة والتمويه, واجعل لي نصيبا من كل خير تنزل فيه, بجودك يا أجود الأجودين",
-    // ... أضف المزيد لكل يوم
+    4: "اللّهُمَّ قوّني فيه على إقامة أمرك, وأذقني فيه حلاوة ذكرك, وأوزعني فيه لأداء شكرك بكرمك, واحفظني بحفظك وسترك يا كريم",
+    5: "اللّهُمَّ اجعلني فيه من المستغفرين, واجعلني من عبادك الصالحين القانتين, واجعلني من أوليائك المقرّبين, برأفتك يا أرحم الراحمين",
+    6: "اللهم لا تردّني خائب الدعاء لتعرضي لمعصيتك, ولا تضربني بسياط نقمتك, وزحزحني عن موجبات سخطك, بمنّك وكرمك يا أكرم الأكرمين.",
+    7: "اللّهُمَّ أعنّي فيه على صيامه وقيامه, وجنّبني فيه من هفواته وآثامه, وارزقني فيه ذكرك بدوامه, بتوفيقك يا هادي المضلّين.",
+    8: "اللّهُمَّ ارزقني فيه رحمة الأيتام, وإطعام الطعام, وإفشاء السلام, وصحبة الكرام, يا اللّه يا ملجأ الآملين."
 };
 
 async function updateRamadanData() {
