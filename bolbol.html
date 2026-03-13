@@ -100,6 +100,9 @@
         <p class="max-w-2xl mx-auto text-slate-500 text-lg font-medium mb-10" data-aos="fade-up" data-aos-delay="100">
             أصواتٌ ندية تنافست بكل حب، والآن القرار بين أيديكم. استمعوا لتلاوات المتأهلين العشرة واختاروا الأفضل.
         </p>
+        <p class="text-xs text-amber-600/70 font-bold mb-10 tracking-wide" data-aos="fade-up" data-aos-delay="150">
+        <i class="fas fa-info-circle ml-1"></i> ملاحظة: تظهر أسماء المتسابقين مرتبة أبجدياً
+    </p>
 
         </div>
 
@@ -126,17 +129,18 @@
         AOS.init({ duration: 800, once: true });
 
 const contestants = [
-    { id: 1, name: "محمد شلبي", avatar: "شلبي.png", audio: "شلبي.mp3" },
-    { id: 2, name: "جمال داغر", avatar: "جمال.png", audio: "جمال.mp3" },
-    { id: 3, name: "عمرو جيتاوي", avatar: "عمرو.png", audio: "عمرو.mp3" },
-    { id: 4, name: "كريم رحيل", avatar: "كريم.png", audio: "كريم.mp3" },
-    { id: 5, name: "أحمد الدنا", avatar: "الدنا.png", audio: "أحمد.mp3" },
-    { id: 6, name: "يزن خضر", avatar: "يزن.png", audio: "يزن.mp3" },
-    { id: 7, name: "أكرم عبدالجواد", avatar: "أكرم.png", audio: "أكرم.mp3" },
-    { id: 8, name: "عبدالرحمن أبو صاع", avatar: "عبد.png", audio: "صاع.mp3" },
-    { id: 9, name: "محمد سروجي", avatar: "سروجي.png", audio: "سروجي.mp3" },
-    { id: 10, name: "حمزة الشوبكي", avatar: "شوبكي.png", audio: "حمزة.mp3" }
+    { id: 1, name: "أحمد الدنا", avatar: "الدنا.png", audio: "أحمد.mp3" },
+    { id: 2, name: "أكرم عبدالجواد", avatar: "أكرم.png", audio: "أكرم.mp3" },
+    { id: 3, name: "جمال داغر", avatar: "جمال.png", audio: "جمال.mp3" },
+    { id: 4, name: "حمزة الشوبكي", avatar: "شوبكي.png", audio: "حمزة.mp3" },
+    { id: 5, name: "عبدالرحمن أبو صاع", avatar: "عبد.png", audio: "صاع.mp3" },
+    { id: 6, name: "عمرو جيتاوي", avatar: "عمرو.png", audio: "عمرو.mp3" },
+    { id: 7, name: "كريم رحيل", avatar: "كريم.png", audio: "كريم.mp3" },
+    { id: 8, name: "محمد سروجي", avatar: "سروجي.png", audio: "سروجي.mp3" },
+    { id: 9, name: "محمد شلبي", avatar: "شلبي.png", audio: "شلبي.mp3" },
+    { id: 10, name: "يزن خضر", avatar: "يزن.png", audio: "يزن.mp3" }
 ];
+
         function renderCards(data) {
             const grid = document.getElementById('candidatesGrid');
             const votedFor = localStorage.getItem('voted_name');
@@ -180,41 +184,46 @@ const contestants = [
             renderCards(filtered);
         }
 
-let currentAudio = null; // Global variable to track playing audio
+let currentAudio = null;
 
 function playSample(audioSrc, name) {
-    // Stop any currently playing audio
+    // إيقاف أي صوت يعمل حالياً
     if (currentAudio) {
         currentAudio.pause();
         currentAudio.currentTime = 0;
     }
 
-    // Create and play new audio
+    // إنشاء كائن الصوت
     currentAudio = new Audio(audioSrc);
-    currentAudio.play();
 
-    // Visual feedback
+    // إظهار نافذة التحكم
     Swal.fire({
-        title: 'جاري الاستماع',
-        text: `أنت تستمع الآن لتلاوة المتسابق ${name}`,
-        iconHtml: '<i class="fas fa-volume-up text-amber-500 animate-pulse"></i>',
-        showCancelButton: true,
-        cancelButtonText: 'إيقاف الصوت',
-        confirmButtonColor: '#c5a059',
+        title: 'مقطع التلاوة',
+        html: `
+            <div class="p-4">
+                <p class="mb-4 text-slate-600 font-medium">أنت تستمع الآن للمتسابق: <span class="text-amber-600 font-bold">${name}</span></p>
+                <audio controls autoplay class="w-full focus:outline-none">
+                    <source src="${audioSrc}" type="audio/mpeg">
+                    متصفحك لا يدعم تشغيل الصوت.
+                </audio>
+            </div>
+        `,
+        showConfirmButton: true,
         confirmButtonText: 'إغلاق',
-        background: '#fff',
-        customClass: { icon: 'border-none' }
-    }).then((result) => {
-        // Stop audio if they click "Stop" or close the alert
-        if (result.dismiss === Swal.DismissReason.cancel) {
-            currentAudio.pause();
+        confirmButtonColor: '#c5a059',
+        background: '#ffffff',
+        allowOutsideClick: false, // لمنع إغلاق النافذة بالخطأ أثناء الاستماع
+        didOpen: () => {
+            const audioEl = Swal.getHtmlContainer().querySelector('audio');
+            // ربط الكائن العالمي بالعنصر الموجود داخل النافذة للتحكم به
+            currentAudio = audioEl; 
+        },
+        willClose: () => {
+            if (currentAudio) {
+                currentAudio.pause();
+            }
         }
     });
-
-    // Auto-stop when the audio file ends
-    currentAudio.onended = () => {
-        Swal.close();
-    };
 }
 
         async function handleVote(name) {
