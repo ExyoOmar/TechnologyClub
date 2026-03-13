@@ -101,23 +101,6 @@
             أصواتٌ ندية تنافست بكل حب، والآن القرار بين أيديكم. استمعوا لتلاوات المتأهلين السبعة واختاروا الأفضل.
         </p>
 
-        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 mb-16" data-aos="fade-up" data-aos-delay="200">
-            <div class="stats-badge">
-                <div class="text-xs font-bold text-slate-400 mb-1">المتسابقين</div>
-                <div class="text-2xl font-black text-slate-800">07</div>
-            </div>
-            <div class="stats-badge">
-                <div class="text-xs font-bold text-slate-400 mb-1">الأصوات الحالية</div>
-                <div class="text-2xl font-black text-slate-800">100+</div>
-            </div>
-            <div class="stats-badge">
-                <div class="text-xs font-bold text-slate-400 mb-1">الأيام المتبقية</div>
-                <div class="text-2xl font-black text-slate-800">03</div>
-            </div>
-            <div class="stats-badge">
-                <div class="text-xs font-bold text-slate-400 mb-1">الحالة</div>
-                <div class="text-xs font-black text-emerald-600 bg-emerald-50 py-1 rounded-md mt-2">مفتوح الآن</div>
-            </div>
         </div>
 
         <div class="max-w-xl mx-auto relative" data-aos="fade-up" data-aos-delay="300">
@@ -142,16 +125,18 @@
     <script>
         AOS.init({ duration: 800, once: true });
 
-        const contestants = [
-    { id: 1, name: "محمد شلبي", detail: "سورة النبأ", avatar: "1.jpeg" },
-    { id: 2, name: "جمال داغر", detail: "سورة الحشر", avatar: "2.jpeg" },
-    { id: 3, name: "يامن مكحول", detail: "سورة ق", avatar: "3.jpeg" },
-    { id: 4, name: "كريم يتايمة", detail: "سورة يس", avatar: "4.jpeg" },
-    { id: 5, name: "عمر أبو بكر", detail: "سورة الرحمن", avatar: "5.jpeg" },
-    { id: 6, name: "يمان حطاب", detail: "سورة الملك", avatar: "6.jpeg" },
-    { id: 7, name: "سامي نبتيتي", detail: "سورة الواقعة", avatar: "7.jpeg" }
+const contestants = [
+    { id: 1, name: "محمد شلبي", avatar: "شلبي.png", audio: "شلبي.mp3" },
+    { id: 2, name: "جمال داغر", avatar: "جمال.png", audio: "جمال.mp3" },
+    { id: 3, name: "عمرو جيتاوي", avatar: "عمرو.png", audio: "عمرو.mp3" },
+    { id: 4, name: "كريم رحيل", avatar: "كريم.png", audio: "كريم.mp3" },
+    { id: 5, name: "أحمد الدنا", avatar: "الدنا.png", audio: "أحمد.mp3" },
+    { id: 6, name: "يزن خضر", avatar: "يزن.png", audio: "يزن.mp3" },
+    { id: 7, name: "أكرم عبدالجواد", avatar: "أكرم.png", audio: "أكرم.mp3" },
+    { id: 8, name: "عبدالرحمن أبو صاع", avatar: "عبد.png", audio: "صاع.mp3" },
+    { id: 9, name: "محمد سروجي", avatar: "سروجي.png", audio: "سروجي.mp3" },
+    { id: 10, name: "حمزة الشوبكي", avatar: "شوبكي.png", audio: "حمزة.mp3" }
 ];
-
         function renderCards(data) {
             const grid = document.getElementById('candidatesGrid');
             const votedFor = localStorage.getItem('voted_name');
@@ -166,10 +151,10 @@
                     
                     <div class="text-center">
                         <h3 class="text-xl font-black text-slate-800 mb-1">${c.name}</h3>
-                        <p class="text-slate-400 text-xs font-bold mb-6">${c.detail}</p>
+                        <p class="text-slate-400 text-xs font-bold mb-6"></p>
                         
                         <div class="flex gap-2">
-                            <button onclick="playSample('${c.name}')" class="w-12 h-12 rounded-xl bg-slate-50 text-slate-400 hover:bg-amber-50 hover:text-amber-600 transition flex items-center justify-center">
+                            <button onclick="playSample('${c.audio}', '${c.name}')" class="w-12 h-12 rounded-xl bg-slate-50 text-slate-400 hover:bg-amber-50 hover:text-amber-600 transition flex items-center justify-center">
                                 <i class="fas fa-volume-up"></i>
                             </button>
                             <button onclick="handleVote('${c.name}')" 
@@ -195,17 +180,42 @@
             renderCards(filtered);
         }
 
-        function playSample(name) {
-            Swal.fire({
-                title: 'جاري تشغيل العينة',
-                text: `استمتع بتلاوة المتسابق ${name}`,
-                iconHtml: '<i class="fas fa-play text-amber-500"></i>',
-                showConfirmButton: false,
-                timer: 2000,
-                background: '#fff',
-                customClass: { icon: 'border-none' }
-            });
+let currentAudio = null; // Global variable to track playing audio
+
+function playSample(audioSrc, name) {
+    // Stop any currently playing audio
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+    }
+
+    // Create and play new audio
+    currentAudio = new Audio(audioSrc);
+    currentAudio.play();
+
+    // Visual feedback
+    Swal.fire({
+        title: 'جاري الاستماع',
+        text: `أنت تستمع الآن لتلاوة المتسابق ${name}`,
+        iconHtml: '<i class="fas fa-volume-up text-amber-500 animate-pulse"></i>',
+        showCancelButton: true,
+        cancelButtonText: 'إيقاف الصوت',
+        confirmButtonColor: '#c5a059',
+        confirmButtonText: 'إغلاق',
+        background: '#fff',
+        customClass: { icon: 'border-none' }
+    }).then((result) => {
+        // Stop audio if they click "Stop" or close the alert
+        if (result.dismiss === Swal.DismissReason.cancel) {
+            currentAudio.pause();
         }
+    });
+
+    // Auto-stop when the audio file ends
+    currentAudio.onended = () => {
+        Swal.close();
+    };
+}
 
         async function handleVote(name) {
             if(localStorage.getItem('voted_bolbol_2026')) return;
