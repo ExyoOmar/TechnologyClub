@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بلبل الإسراء 2026 | المنصة الرسمية</title>
+    <title>بلبل الإسراء 2026 | التصويت مغلق</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -45,28 +45,6 @@
             background: linear-gradient(135deg, #d4af37 0%, #b38f4d 100%);
             box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
         }
-
-        .stats-badge {
-            background: white;
-            border: 1px solid #e2e8f0;
-            padding: 1rem;
-            border-radius: 1.5rem;
-        }
-
-        /* Animated Progress Bar */
-        .progress-line {
-            height: 6px;
-            background: #f1f5f9;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-        .progress-fill {
-            height: 100%;
-            background: var(--gold);
-            width: 65%; /* This would be dynamic in a real app */
-            border-radius: 10px;
-        }
     </style>
 </head>
 <body class="hero-gradient">
@@ -79,36 +57,28 @@
                 </div>
                 <span class="text-xl font-black text-slate-800 tracking-tight">بلبل <span class="text-amber-600">الإسراء</span></span>
             </div>
-            <div id="votedBadge" class="hidden flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-full border border-emerald-100 text-sm font-bold">
-                <i class="fas fa-check-circle"></i>
-                تم تسجيل صوتك
+            <div id="statusBadge" class="flex items-center gap-2 bg-rose-50 text-rose-700 px-4 py-2 rounded-full border border-rose-100 text-sm font-bold">
+                <i class="fas fa-lock"></i>
+                التصويت مغلق
             </div>
         </div>
     </nav>
 
     <header class="pt-40 pb-20 px-6 text-center">
-        <div data-aos="fade-down" class="inline-flex items-center gap-2 px-4 py-1 bg-amber-50 rounded-full text-amber-700 text-xs font-black mb-6 border border-amber-100 uppercase tracking-widest">
-            <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-            </span>
-            المرحلة النهائية 2026
+        <div data-aos="fade-down" class="inline-flex items-center gap-2 px-4 py-1 bg-rose-50 rounded-full text-rose-700 text-xs font-black mb-6 border border-rose-100 uppercase tracking-widest">
+            <i class="fas fa-clock-rotate-left"></i>
+            انتهت الفترة الزمنية لعام 2026
         </div>
         <h1 class="text-5xl md:text-7xl font-black text-slate-900 mb-6 leading-tight" data-aos="fade-up">
             من سيحمل لقب <br> <span class="text-amber-600">بلبل الاسراء؟</span>
         </h1>
         <p class="max-w-2xl mx-auto text-slate-500 text-lg font-medium mb-10" data-aos="fade-up" data-aos-delay="100">
-            أصواتٌ ندية تنافست بكل حب، والآن القرار بين أيديكم. استمعوا لتلاوات المتأهلين العشرة واختاروا الأفضل.
+            شكراً لكل من شارك بصوته. لقد تم إغلاق باب التصويت، وسيتم الإعلان عن النتائج الرسمية قريباً عبر منصات المدرسة.
         </p>
-        <p class="text-xs text-amber-600/70 font-bold mb-10 tracking-wide" data-aos="fade-up" data-aos-delay="150">
-        <i class="fas fa-info-circle ml-1"></i> ملاحظة: تظهر أسماء المتسابقين مرتبة أبجدياً
-    </p>
-
-        </div>
 
         <div class="max-w-xl mx-auto relative" data-aos="fade-up" data-aos-delay="300">
             <i class="fas fa-search absolute right-5 top-1/2 -translate-y-1/2 text-slate-300"></i>
-            <input type="text" id="searchInput" onkeyup="searchNames()" placeholder="ابحث عن متسابق محدد..." 
+            <input type="text" id="searchInput" onkeyup="searchNames()" placeholder="ابحث عن متسابق..." 
                    class="w-full bg-white border border-slate-200 rounded-2xl py-4 pr-14 pl-6 text-slate-700 focus:ring-4 focus:ring-amber-500/5 focus:border-amber-500 outline-none transition-all shadow-sm">
         </div>
     </header>
@@ -128,54 +98,44 @@
     <script>
         AOS.init({ duration: 800, once: true });
 
-const contestants = [
-    { id: 1, name: "أحمد الدنا", avatar: "الدنا.png", audio: "أحمد.mp3" },
-    { id: 2, name: "أكرم عبدالجواد", avatar: "أكرم.png", audio: "أكرم.mp3" },
-    { id: 3, name: "جمال داغر", avatar: "جمال.png", audio: "جمال.mp3" },
-    { id: 4, name: "حمزة الشوبكي", avatar: "شوبكي.png", audio: "حمزة.mp3" },
-    { id: 5, name: "عبدالرحمن أبو صاع", avatar: "عبد.png", audio: "صاع.mp3" },
-    { id: 6, name: "عمرو جيتاوي", avatar: "عمرو.png", audio: "عمرو.mp3" },
-    { id: 7, name: "كريم رحيل", avatar: "كريم.png", audio: "كريم.mp3" },
-    { id: 8, name: "محمد سروجي", avatar: "سروجي.png", audio: "سروجي.mp3" },
-    { id: 9, name: "محمد شلبي", avatar: "شلبي.png", audio: "شلبي.mp3" },
-    { id: 10, name: "يزن خضر", avatar: "يزن.png", audio: "يزن.mp3" }
-];
+        const contestants = [
+            { id: 1, name: "أحمد الدنا", avatar: "الدنا.png", audio: "أحمد.mp3" },
+            { id: 2, name: "أكرم عبدالجواد", avatar: "أكرم.png", audio: "أكرم.mp3" },
+            { id: 3, name: "جمال داغر", avatar: "جمال.png", audio: "جمال.mp3" },
+            { id: 4, name: "حمزة الشوبكي", avatar: "شوبكي.png", audio: "حمزة.mp3" },
+            { id: 5, name: "عبدالرحمن أبو صاع", avatar: "عبد.png", audio: "صاع.mp3" },
+            { id: 6, name: "عمرو جيتاوي", avatar: "عمرو.png", audio: "عمرو.mp3" },
+            { id: 7, name: "كريم رحيل", avatar: "كريم.png", audio: "كريم.mp3" },
+            { id: 8, name: "محمد سروجي", avatar: "سروجي.png", audio: "سروجي.mp3" },
+            { id: 9, name: "محمد شلبي", avatar: "شلبي.png", audio: "شلبي.mp3" },
+            { id: 10, name: "يزن خضر", avatar: "يزن.png", audio: "يزن.mp3" }
+        ];
 
         function renderCards(data) {
             const grid = document.getElementById('candidatesGrid');
-            const votedFor = localStorage.getItem('voted_name');
             
             grid.innerHTML = data.map(c => `
                 <div class="candidate-card glass-card p-6 rounded-[2.5rem] relative overflow-hidden group">
-                    ${votedFor === c.name ? '<div class="absolute top-4 left-4 text-emerald-500"><i class="fas fa-check-circle fa-lg"></i></div>' : ''}
-                    
                     <div class="w-24 h-24 bg-slate-100 rounded-3xl mx-auto mb-6 flex items-center justify-center overflow-hidden border-4 border-white shadow-inner">
                         <img src="${c.avatar}" class="w-full h-full object-cover">
                     </div>
                     
                     <div class="text-center">
                         <h3 class="text-xl font-black text-slate-800 mb-1">${c.name}</h3>
-                        <p class="text-slate-400 text-xs font-bold mb-6"></p>
+                        <p class="text-slate-400 text-xs font-bold mb-6">مشارك في المرحلة النهائية</p>
                         
                         <div class="flex gap-2">
                             <button onclick="playSample('${c.audio}', '${c.name}')" class="w-12 h-12 rounded-xl bg-slate-50 text-slate-400 hover:bg-amber-50 hover:text-amber-600 transition flex items-center justify-center">
                                 <i class="fas fa-volume-up"></i>
                             </button>
-                            <button onclick="handleVote('${c.name}')" 
-                                    class="vote-btn flex-1 h-12 rounded-xl gold-button text-white font-black text-sm disabled:opacity-30 disabled:grayscale transition-all">
-                                ${votedFor === c.name ? 'تم اختيارك' : 'تصويت'}
+                            <button onclick="handleClosedVote()" 
+                                    class="flex-1 h-12 rounded-xl bg-slate-100 text-slate-400 font-black text-sm cursor-not-allowed transition-all">
+                                انتهى التصويت
                             </button>
                         </div>
                     </div>
                 </div>
             `).join('');
-
-            if(localStorage.getItem('voted_bolbol_2026')) {
-                document.querySelectorAll('.vote-btn').forEach(b => {
-                    if(b.innerText !== 'تم اختيارك') b.disabled = true;
-                });
-                document.getElementById('votedBadge').classList.remove('hidden');
-            }
         }
 
         function searchNames() {
@@ -184,96 +144,45 @@ const contestants = [
             renderCards(filtered);
         }
 
-let currentAudio = null;
+        let currentAudio = null;
 
-function playSample(audioSrc, name) {
-    // إيقاف أي صوت يعمل حالياً
-    if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-    }
-
-    // إنشاء كائن الصوت
-    currentAudio = new Audio(audioSrc);
-
-    // إظهار نافذة التحكم
-    Swal.fire({
-        title: 'مقطع التلاوة',
-        html: `
-            <div class="p-4">
-                <p class="mb-4 text-slate-600 font-medium">أنت تستمع الآن للمتسابق: <span class="text-amber-600 font-bold">${name}</span></p>
-                <audio controls autoplay class="w-full focus:outline-none">
-                    <source src="${audioSrc}" type="audio/mpeg">
-                    متصفحك لا يدعم تشغيل الصوت.
-                </audio>
-            </div>
-        `,
-        showConfirmButton: true,
-        confirmButtonText: 'إغلاق',
-        confirmButtonColor: '#c5a059',
-        background: '#ffffff',
-        allowOutsideClick: false, // لمنع إغلاق النافذة بالخطأ أثناء الاستماع
-        didOpen: () => {
-            const audioEl = Swal.getHtmlContainer().querySelector('audio');
-            // ربط الكائن العالمي بالعنصر الموجود داخل النافذة للتحكم به
-            currentAudio = audioEl; 
-        },
-        willClose: () => {
+        function playSample(audioSrc, name) {
             if (currentAudio) {
                 currentAudio.pause();
+                currentAudio.currentTime = 0;
             }
-        }
-    });
-}
 
-        async function handleVote(name) {
-            if(localStorage.getItem('voted_bolbol_2026')) return;
-
-            const result = await Swal.fire({
-                title: 'تأكيد اختيارك',
-                text: `هل تود منح صوتك لـ ${name}؟`,
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'نعم، أؤكد صوتي',
-                cancelButtonText: 'إلغاء',
+            Swal.fire({
+                title: 'مقطع التلاوة',
+                html: `
+                    <div class="p-4">
+                        <p class="mb-4 text-slate-600 font-medium text-right">المتسابق: <span class="text-amber-600 font-bold">${name}</span></p>
+                        <audio controls autoplay class="w-full focus:outline-none">
+                            <source src="${audioSrc}" type="audio/mpeg">
+                        </audio>
+                    </div>
+                `,
+                showConfirmButton: true,
+                confirmButtonText: 'إغلاق',
                 confirmButtonColor: '#c5a059',
-                cancelButtonColor: '#f1f5f9',
-                customClass: { cancelButton: 'text-slate-500' }
+                willClose: () => {
+                    const audioEl = Swal.getHtmlContainer().querySelector('audio');
+                    if (audioEl) audioEl.pause();
+                }
             });
-
-            if (result.isConfirmed) {
-                // Celebration
-                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#c5a059', '#1e293b'] });
-
-                // Logic
-                localStorage.setItem('voted_bolbol_2026', 'true');
-                localStorage.setItem('voted_name', name);
-                
-                // Background Sync to SheetDB
-                sendToGoogleSheet(name);
-
-                Swal.fire({ title: 'شكراً لك!', text: 'تم تسجيل صوتك بنجاح.', icon: 'success', confirmButtonColor: '#c5a059' });
-                renderCards(contestants);
-            }
         }
 
-        async function sendToGoogleSheet(name) {
-            const apiURL = "https://sheetdb.io/api/v1/zeovqcjlkm9db";
-            const fingerprint = localStorage.getItem('voter_id') || Math.random().toString(36).slice(2);
-            localStorage.setItem('voter_id', fingerprint);
-
-            try {
-                await fetch(apiURL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        data: [{ "Timestamp": new Date().toLocaleString(), "CandidateName": name, "VoterID": fingerprint }]
-                    })
-                });
-            } catch (err) { console.error("Sync Error:", err); }
+        function handleClosedVote() {
+            Swal.fire({
+                title: 'عذراً، التصويت مغلق',
+                text: 'لقد انتهت الفترة المخصصة للتصويت لهذه المسابقة. ترقبوا النتائج قريباً!',
+                icon: 'info',
+                confirmButtonText: 'حسناً',
+                confirmButtonColor: '#1e293b'
+            });
         }
 
-        // Secret Admin Access (Press L + M)
+        // Admin Access remains hidden
         let keys = {};
         document.addEventListener('keydown', e => {
             keys[e.key.toLowerCase()] = true;
@@ -285,14 +194,13 @@ function playSample(audioSrc, name) {
                     confirmButtonColor: '#1e293b'
                 }).then(res => {
                     if(res.value === "isra2026") {
-                        Swal.fire('أهلاً بك', 'يمكنك متابعة النتائج من الرابط المرسل لبريدك.', 'success');
+                        Swal.fire('أهلاً بك', 'يمكنك مراجعة النتائج النهائية من قاعدة البيانات.', 'success');
                     }
                 });
             }
         });
         document.addEventListener('keyup', e => { delete keys[e.key.toLowerCase()]; });
 
-        // Initial Load
         renderCards(contestants);
     </script>
 </body>
